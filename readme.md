@@ -1,14 +1,20 @@
-// -----------------------------------------------------------------------------
-// main - MPF 12/2019
-// -----------------------------------------------------------------------------
+# Implementation of MACRO based Finite State Machine (FSM)
 
-// includes
-#include <string.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
+This code implements a macro based finite state machine. Purpose of this implementation is to have a fsm that can be graphed for easy visualization.
+
+# Usage
+
+- Include "fsm.h" in project
+- Create states and fsm structure
+- Create init and step functions
+- Fill up fsm with BEGIN_STATE/END_STATE for every state
+- Fill up ENTRY/DURING/EXIT and EVENT on any state that needs it
+
+Example:
+
+```
+// include fsm macro
 #include "fsm.h"
-
 
 // enumerate states
 enum states_enum {
@@ -20,25 +26,6 @@ enum states_enum {
 // fsm structure
 fsm_t fsm;
 #define FSM_STRCT fsm
-
-// prototypes
-void fsm_init(void);
-void fsm_step(void);
-
-// -----------------------------------------------------------------------------
-// main
-// -----------------------------------------------------------------------------
-int i,j;
-int stop;
-int main(void){
-    stop=0;
-    fsm_init();
-    for (j=0; j<50; j++) {
-        if (j==40) stop=1;
-        fsm_step();
-    }
-    return 0;
-}
 
 // -----------------------------------------------------------------------------
 // sm init
@@ -57,24 +44,20 @@ void fsm_step(void){
         BEGIN_STATE(STATE_STATE1);
 
             BEGIN_ENTRY;
-                // state 1 entry
                 printf("Entry STATE_STATE1 i=%u\n",i);
             END_ENTRY;
 
             BEGIN_DURING;
-                // state 1 during
                 i++;
                 printf("During STATE_STATE1 i=%u\n",i);
             END_DURING;
             
             BEGIN_EVENT(i==4,STATE_STATE2);
-                // state 1 event
                 printf("Event STATE_STATE1 i=%u\n",i);
                 i=0;
             END_EVENT;
             
             BEGIN_EXIT;
-                // state 1 exit
                 printf("Exit STATE_STATE1 i=%u\n",i);
             END_EXIT;
 
@@ -83,29 +66,24 @@ void fsm_step(void){
         BEGIN_STATE(STATE_STATE2);
             
             BEGIN_ENTRY;
-                // state 2 entry
                 printf("Entry STATE_STATE2 i=%u\n",i);
             END_ENTRY;
             
             BEGIN_DURING;
-                // state 2 during
                 i++;
                 printf("During STATE_STATE2 i=%u\n",i);
             END_DURING;
             
             BEGIN_EVENT(i==5,STATE_STATE1);
-                // state 2 event 1
                 printf("Event STATE_STATE2 i=%u\n",i);
                 i=0;
             END_EVENT;
 
             BEGIN_EVENT(stop,STATE_STOP);
-                // state 2 event 2
                 printf("Stop event\n");
             END_EVENT;
             
             BEGIN_EXIT;
-                // state 2 exit
                 printf("Exit STATE_STATE2 i=%u\n",i);
             END_EXIT;
 
@@ -117,3 +95,6 @@ void fsm_step(void){
 
     END_FSM;
 }
+```
+
+

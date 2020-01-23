@@ -6,22 +6,17 @@
 #define _FSM_H_
 
 // fsm states
-typedef enum state_enum {
-    STATE_ENTRY,
-    STATE_STATE1,
-    STATE_STATE2,
-    STATE_STOP,
-} state_t;
+typedef unsigned int state_t;
 
 // fsm structure
 typedef struct fsm_struct {
     state_t state;
-    int entry_flag;
-    int exit_flag;
+    unsigned int entry_flag;
+    unsigned int exit_flag;
 } fsm_t;
 
-// define variable holding fsm structure
-#define FSM_STRCT  fsm
+// define symbol to point to fsm struct
+// #define FSM_STRCT fsm
 
 // fsm init - run once in init
 #define FSM_INIT(entry_state) FSM_STRCT.state = entry_state; \
