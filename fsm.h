@@ -13,6 +13,7 @@ typedef struct fsm_struct {
     state_t state;
     unsigned int entry_flag;
     unsigned int exit_flag;
+    unsigned int event_flag;
 } fsm_t;
 
 // define symbol to point to fsm struct
@@ -23,8 +24,8 @@ typedef struct fsm_struct {
     FSM_STRCT.entry_flag = 1; FSM_STRCT.exit_flag = 0;
 
 // fsm
-#define BEGIN_FSM switch(FSM_STRCT.state) {
-#define END_FSM }
+#define BEGIN_FSM { FSM_STRCT.event_flag = 0; switch(FSM_STRCT.state) {
+#define END_FSM }}
 
 // fsm state
 #define BEGIN_STATE(state)  case (state):
@@ -39,8 +40,10 @@ typedef struct fsm_struct {
 #define END_DURING }
 
 // fsm event block - add as many events as needed
-#define BEGIN_EVENT(test, new_state) if(test){FSM_STRCT.state=new_state;\
-    FSM_STRCT.entry_flag = FSM_STRCT.exit_flag = 1;
+// first event to pass test will execute, following events will be skipped
+#define BEGIN_EVENT(test, new_state) if((!FSM_STRCT.event_flag)&&(test))\
+    {FSM_STRCT.state=new_state;\
+    FSM_STRCT.entry_flag = FSM_STRCT.exit_flag = FSM_STRCT.event_flag = 1;
 #define END_EVENT }
 
 // fsm exit block (optional)
