@@ -54,6 +54,8 @@ void fsm_init(void){
 void fsm_step(void){
 
     BEGIN_EVENT(stop,STATE_STOP);
+        // stop all
+        printf("Stop all\n");
     END_EVENT;
     
     BEGIN_FSM;
@@ -137,7 +139,7 @@ void fsm_step(void){
         END_STATE;
 
         BEGIN_STATE(STATE_STOP);
-
+            stop = 0;
         END_STATE;
 
     END_FSM;
