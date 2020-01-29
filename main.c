@@ -139,7 +139,9 @@ void fsm_step(void){
         END_STATE;
 
         BEGIN_STATE(STATE_STOP);
-            stop = 0;
+            BEGIN_ENTRY;
+                stop = 0;
+            END_ENTRY;
         END_STATE;
 
     END_FSM;

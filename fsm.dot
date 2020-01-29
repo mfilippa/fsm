@@ -1,12 +1,12 @@
 digraph G {
-    node [shape=box,fontname=courier];
-    ENTRY [label="ENTRY"];
+    node [shape=Mrecord,fontname=courier];
+    ENTRY [shape=box,style=bold,label="ENTRY"];
     ENTRY -> STATE_STATE1;
-    STATE_STATE1 [label="=== STATE_STATE1 ===\nEntry:\l  state 1 entry statements\lDuring:\l  state 1 during statements\lExit:\l  state 1 exit statements\l"];
-    STATE_STATE2 [label="=== STATE_STATE2 ===\nEntry:\l  state 2 entry statements\lDuring:\l  state 2 during statements\lExit:\l  state 2 exit statements\l"];
-    STATE_STATE3 [label="=== STATE_STATE3 ===\nEntry:\l  state 3 entry statements\lDuring:\l  state 3 during statements\lExit:\l  state 3 exit statements\l"];
-    STATE_STOP [label="=== STATE_STOP ===\n"];
-    ALL [label="ALL"];
+    STATE_STATE1 [label="{STATE_STATE1|Entry:\l  state 1 entry statements\lDuring:\l  state 1 during statements\lExit:\l  state 1 exit statements\l}"];
+    STATE_STATE2 [label="{STATE_STATE2|Entry:\l  state 2 entry statements\lDuring:\l  state 2 during statements\lExit:\l  state 2 exit statements\l}"];
+    STATE_STATE3 [label="{STATE_STATE3|Entry:\l  state 3 entry statements\lDuring:\l  state 3 during statements\lExit:\l  state 3 exit statements\l}"];
+    STATE_STOP [label="{STATE_STOP|}"];
+    ALL [shape=box,style=bold,label="ALL"];
     ALL -> STATE_STOP [fontname=courier,label="stop"];
     STATE_STATE1 -> STATE_STATE2 [fontname=courier,label="i==4"];
     STATE_STATE2 -> STATE_STATE3 [fontname=courier,label="i==5"];
